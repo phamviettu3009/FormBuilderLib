@@ -1,0 +1,485 @@
+{
+  "id": "admission-registration",
+  "version": 1,
+  "formType": "antd-form",
+  "title": "",
+  "description": "",
+  "layout": {
+    "labelPosition": "top",
+    "gutter": 16,
+    "groups": [
+      {
+        "id": "applicant",
+        "title": "1. Thông tin thí sinh",
+        "sections": [
+          {
+            "id": "applicant-information",
+            "title": "Thông tin cá nhân",
+            "description": "Nhập thông tin định danh và liên hệ của thí sinh.",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 2,
+              "gutter": 16
+            },
+            "fields": [
+              { "name": "applicantName" },
+              { "name": "dateOfBirth" },
+              { "name": "gender" },
+              { "name": "citizenId" },
+              { "name": "applicantPhone" }
+            ]
+          },
+          {
+            "id": "applicant-information-section-2",
+            "title": "",
+            "description": "",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 2,
+              "gutter": 16
+            },
+            "fields": [{ "name": "applicantEmail", "column": 2, "span": 1 }]
+          },
+          {
+            "id": "applicant-information-actions",
+            "title": "",
+            "description": "",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 3,
+              "gutter": 16
+            },
+            "fields": [
+              {
+                "type": "action",
+                "name": "nextToGuardian",
+                "column": 3,
+                "span": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "guardian",
+        "title": "2. Thông tin phụ huynh",
+        "sections": [
+          {
+            "id": "guardian-information",
+            "title": "Người giám hộ",
+            "description": "Cung cấp thông tin phụ huynh hoặc người giám hộ để nhà trường liên hệ.",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 2,
+              "gutter": 16
+            },
+            "fields": [
+              { "name": "guardianName" },
+              { "name": "guardianRelationship" },
+              { "name": "guardianPhone" },
+              { "name": "guardianEmail" },
+              { "name": "guardianAddress" }
+            ]
+          },
+          {
+            "id": "guardian-actions",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 4,
+              "gutter": 16
+            },
+            "fields": [
+              {
+                "type": "action",
+                "name": "backToApplicant",
+                "column": 3,
+                "span": 1
+              },
+              {
+                "type": "action",
+                "name": "nextToProgram",
+                "column": 4,
+                "span": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "program",
+        "title": "3. Nguyện vọng tuyển sinh",
+        "sections": [
+          {
+            "id": "program-preferences",
+            "title": "Thông tin đăng ký",
+            "description": "Chọn chương trình và năm học mà thí sinh muốn đăng ký.",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 2,
+              "gutter": 16
+            },
+            "fields": [
+              { "name": "schoolYear" },
+              { "name": "educationLevel" },
+              { "name": "firstChoice" },
+              { "name": "previousSchool" },
+              { "name": "additionalInformation" },
+              { "name": "agreeToDeclaration" }
+            ]
+          },
+          {
+            "id": "program-actions",
+            "layout": {
+              "direction": "horizontal",
+              "columns": 2,
+              "gutter": 16
+            },
+            "fields": [
+              {
+                "type": "action",
+                "name": "backToGuardian",
+                "column": 1,
+                "span": 1
+              },
+              { "type": "action", "name": "submit", "column": 2, "span": 1 }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fields": {
+    "applicantName": {
+      "useComponent": "input",
+      "label": "Họ và tên thí sinh",
+      "placeholder": "Nhập họ và tên",
+      "required": true,
+      "value": "@values.applicantName",
+      "liveValidation": {
+        "active": true,
+        "debounce": 300,
+        "trigger": "onChange"
+      },
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập họ và tên thí sinh"
+        },
+        {
+          "rule": "stringMin",
+          "value": 2,
+          "message": "Họ và tên phải có ít nhất 2 ký tự"
+        },
+        {
+          "rule": "stringMax",
+          "value": 100,
+          "message": "Họ và tên không được vượt quá 100 ký tự"
+        }
+      ]
+    },
+    "dateOfBirth": {
+      "useComponent": "date-picker",
+      "label": "Ngày sinh",
+      "value": "@values.dateOfBirth",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng chọn ngày sinh"
+        },
+        {
+          "rule": "date",
+          "message": "Ngày sinh không hợp lệ"
+        }
+      ]
+    },
+    "gender": {
+      "useComponent": "select",
+      "label": "Giới tính",
+      "placeholder": "Chọn giới tính",
+      "options": "@options.gender",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng chọn giới tính"
+        }
+      ]
+    },
+    "citizenId": {
+      "useComponent": "input",
+      "label": "Số định danh cá nhân",
+      "placeholder": "Nhập số định danh",
+      "props": {
+        "maxLength": 12
+      },
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập số định danh cá nhân"
+        },
+        {
+          "rule": "stringMin",
+          "value": 9,
+          "message": "Số định danh phải có ít nhất 9 ký tự"
+        },
+        {
+          "rule": "stringMax",
+          "value": 12,
+          "message": "Số định danh không được vượt quá 12 ký tự"
+        }
+      ]
+    },
+    "applicantEmail": {
+      "useComponent": "input",
+      "label": "Email thí sinh",
+      "placeholder": "ten@example.com",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập email thí sinh"
+        },
+        {
+          "rule": "email",
+          "message": "Email không hợp lệ"
+        }
+      ]
+    },
+    "applicantPhone": {
+      "useComponent": "input",
+      "label": "Số điện thoại thí sinh",
+      "placeholder": "Nhập số điện thoại",
+      "props": {
+        "type": "tel"
+      },
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập số điện thoại thí sinh"
+        },
+        {
+          "rule": "phone",
+          "message": "Số điện thoại không hợp lệ"
+        }
+      ]
+    },
+    "guardianName": {
+      "useComponent": "input",
+      "label": "Họ và tên phụ huynh/người giám hộ",
+      "placeholder": "Nhập họ và tên",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập họ tên phụ huynh hoặc người giám hộ"
+        }
+      ]
+    },
+    "guardianRelationship": {
+      "useComponent": "select",
+      "label": "Mối quan hệ với thí sinh",
+      "placeholder": "Chọn mối quan hệ",
+      "options": [
+        {
+          "label": "Cha",
+          "value": "father"
+        },
+        {
+          "label": "Mẹ",
+          "value": "mother"
+        },
+        {
+          "label": "Người giám hộ",
+          "value": "guardian"
+        },
+        {
+          "label": "Khác",
+          "value": "other"
+        }
+      ],
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng chọn mối quan hệ"
+        }
+      ]
+    },
+    "guardianPhone": {
+      "useComponent": "input",
+      "label": "Số điện thoại phụ huynh/người giám hộ",
+      "placeholder": "Nhập số điện thoại",
+      "props": {
+        "type": "tel"
+      },
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập số điện thoại phụ huynh hoặc người giám hộ"
+        },
+        {
+          "rule": "phone",
+          "message": "Số điện thoại không hợp lệ"
+        }
+      ]
+    },
+    "guardianEmail": {
+      "useComponent": "input",
+      "label": "Email phụ huynh/người giám hộ",
+      "placeholder": "ten@example.com",
+      "validations": [
+        {
+          "rule": "email",
+          "message": "Email không hợp lệ"
+        }
+      ]
+    },
+    "guardianAddress": {
+      "useComponent": "input",
+      "label": "Địa chỉ liên hệ",
+      "placeholder": "Số nhà, đường, phường/xã, tỉnh/thành phố",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập địa chỉ liên hệ"
+        }
+      ]
+    },
+    "schoolYear": {
+      "useComponent": "select",
+      "label": "Năm học đăng ký",
+      "placeholder": "Chọn năm học",
+      "options": [
+        {
+          "label": "2026 - 2027",
+          "value": "2026-2027"
+        },
+        {
+          "label": "2027 - 2028",
+          "value": "2027-2028"
+        }
+      ],
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng chọn năm học"
+        }
+      ]
+    },
+    "educationLevel": {
+      "useComponent": "select",
+      "label": "Cấp học đăng ký",
+      "placeholder": "Chọn cấp học",
+      "options": [
+        {
+          "label": "Tiểu học",
+          "value": "primary"
+        },
+        {
+          "label": "Trung học cơ sở",
+          "value": "lower-secondary"
+        },
+        {
+          "label": "Trung học phổ thông",
+          "value": "upper-secondary"
+        }
+      ],
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng chọn cấp học"
+        }
+      ]
+    },
+    "firstChoice": {
+      "useComponent": "input",
+      "label": "Nguyện vọng/chương trình đăng ký",
+      "placeholder": "Nhập lớp, chương trình hoặc ngành học mong muốn",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập nguyện vọng đăng ký"
+        },
+        {
+          "rule": "stringMax",
+          "value": 200,
+          "message": "Nguyện vọng không được vượt quá 200 ký tự"
+        }
+      ]
+    },
+    "previousSchool": {
+      "useComponent": "input",
+      "label": "Trường đã theo học gần nhất",
+      "placeholder": "Nhập tên trường",
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng nhập trường đã theo học gần nhất"
+        }
+      ]
+    },
+    "additionalInformation": {
+      "useComponent": "textarea",
+      "label": "Thông tin bổ sung",
+      "placeholder": "Ghi chú thêm cho hồ sơ (nếu có)",
+      "props": {
+        "rows": 4,
+        "maxLength": 1000
+      },
+      "validations": [
+        {
+          "rule": "stringMax",
+          "value": 1000,
+          "message": "Thông tin bổ sung không được vượt quá 1000 ký tự"
+        }
+      ]
+    },
+    "agreeToDeclaration": {
+      "useComponent": "checkbox",
+      "label": "Tôi xác nhận thông tin đăng ký là chính xác",
+      "value": false,
+      "validations": [
+        {
+          "rule": "required",
+          "message": "Vui lòng xác nhận thông tin đăng ký"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "nextToGuardian",
+      "type": "custom",
+      "useComponent": "button",
+      "label": "Tiếp theo",
+      "placement": "primary",
+      "validateBeforeRun": true,
+      "validationGroups": ["applicant"]
+    },
+    {
+      "id": "backToApplicant",
+      "type": "custom",
+      "useComponent": "button",
+      "label": "Quay lại"
+    },
+    {
+      "id": "nextToProgram",
+      "type": "custom",
+      "useComponent": "button",
+      "label": "Tiếp theo",
+      "placement": "primary",
+      "validateBeforeRun": true,
+      "validationGroups": ["guardian"]
+    },
+    {
+      "id": "backToGuardian",
+      "type": "custom",
+      "useComponent": "button",
+      "label": "Quay lại"
+    },
+    {
+      "id": "submit",
+      "type": "submit",
+      "useComponent": "button",
+      "label": "Gửi hồ sơ",
+      "placement": "primary",
+      "validateBeforeRun": true
+    }
+  ]
+}

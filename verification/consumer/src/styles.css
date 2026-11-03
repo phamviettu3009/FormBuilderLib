@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  background: #eef2f0;
+  color: #273f34;
+  font-family: Georgia, serif;
+}
+
+main {
+  box-sizing: border-box;
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 24px;
+  background: white;
+}
+
+.verification-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.verification-toolbar button,
+.form-builder input {
+  box-sizing: border-box;
+  min-height: 36px;
+  padding: 8px;
+  border: 1px solid #c4d1c9;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.form-builder input {
+  width: 100%;
+  min-width: 0;
+}
+
+.form-builder input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+output {
+  display: block;
+  margin-top: 16px;
+}
+
+@media (max-width: 540px) {
+  main {
+    margin: 0;
+    padding: 16px;
+  }
+}

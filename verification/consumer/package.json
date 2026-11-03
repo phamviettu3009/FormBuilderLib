@@ -1,0 +1,25 @@
+{
+  "name": "form-builder-packed-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@local/form-builder": "file:../../local-form-builder-0.1.0.tgz",
+    "antd": "^5.29.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "dayjs": "^1.11.23",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.4"
+  }
+}
